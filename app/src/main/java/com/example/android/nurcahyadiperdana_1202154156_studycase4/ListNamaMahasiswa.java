@@ -2,6 +2,7 @@ package com.example.android.nurcahyadiperdana_1202154156_studycase4;
 
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
+import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -21,6 +22,7 @@ public class ListNamaMahasiswa extends AppCompatActivity {
     ListView listnama;
     Button btnmulai;
 
+    private static Parcelable mListViewScrollPos = null;
 
 
     @Override
@@ -34,7 +36,10 @@ public class ListNamaMahasiswa extends AppCompatActivity {
         //mengeset adapter array
         listnama.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,new ArrayList<String>()));
 
-
+        // Restore the ListView position
+        if (mListViewScrollPos != null) {
+            listnama.onRestoreInstanceState(mListViewScrollPos);
+        }
 
 
         btnmulai.setOnClickListener(new View.OnClickListener() {
@@ -46,6 +51,13 @@ public class ListNamaMahasiswa extends AppCompatActivity {
         });
 
             }
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        // Save the ListView position
+        mListViewScrollPos = listnama.onSaveInstanceState();
+    }
 
     class mytask extends AsyncTask<Void,String,String>{
 
@@ -82,7 +94,7 @@ public class ListNamaMahasiswa extends AppCompatActivity {
             for (String namamhs : nama){
                 publishProgress(namamhs);
                 try {
-                    Thread.sleep(1000);
+                    Thread.sleep(100);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -108,6 +120,11 @@ public class ListNamaMahasiswa extends AppCompatActivity {
             Toast.makeText(getApplicationContext(),result,Toast.LENGTH_LONG).show();
             //setelah loading progress sudah full maka otomatis akan hilang progress dialognya
             progressdialog.hide();
+
+
         }
+
     }
+
+
 }

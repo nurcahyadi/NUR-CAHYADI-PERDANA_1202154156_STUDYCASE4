@@ -1,5 +1,6 @@
 package com.example.android.nurcahyadiperdana_1202154156_studycase4;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,6 +11,7 @@ public class MainActivity extends AppCompatActivity {
 
     Button list,pencarigambar;
 
+    @SuppressLint("WrongConstant")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -17,6 +19,7 @@ public class MainActivity extends AppCompatActivity {
 
         list = findViewById(R.id.listmahasiswa);
         pencarigambar = findViewById(R.id.carigambar);
+
 
         list.setOnClickListener(new View.OnClickListener() {
             @Override
